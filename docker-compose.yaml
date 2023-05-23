@@ -1,0 +1,22 @@
+version: '3.6'
+services:
+  mysqldb:
+    image: mysql:8
+    restart: always
+    environment:
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=database
+    ports:
+      - 3306:3306
+    volumes:
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init-script.sql
+      - ./dbdata:/var/lib/mysql
+  
+  adminer:
+    image: adminer
+    restart: always
+    ports: 
+      - 8000:8080
+
